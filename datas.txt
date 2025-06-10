@@ -1,0 +1,4 @@
+https://github.com/ProlificCom/PL2701_Libusb_SDK/blob/master/Source/pl2701.h
+
+wireshark capture:
+(((usb.dst == "2.2.0") || (usb.src == "2.2.0")) && !(usb.setup.bRequest == 241)) && !(usb.control.Response == 07:06)

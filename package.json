@@ -1,0 +1,19 @@
+{
+  "name": "ya2701",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "build": "npx tsc",
+    "test" : "npx tsc && node dist/main.js"
+  },
+  "author": "frto027",
+  "license": "UNLICENSED",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "usb": "^2.15.0"
+  }
+}
