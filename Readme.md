@@ -9,3 +9,5 @@ The mainly purpose for this project is get rid of that old software.
 I know nodejs is slower than cpp. I know that.
 
 All the information here is what I guessed in my dreams, it is unreliable.
+
+use [zadig](https://zadig.akeo.ie/#google_vignette) to setup the WinUSB driver properly in windows

@@ -1,4 +1,5 @@
 import { usb, Interface, Endpoint, OutEndpoint, InEndpoint, LibUSBException } from "usb"
+import { Config } from "../config"
 
 export class DevStatus {
     localAttached: boolean
@@ -153,7 +154,6 @@ export class RemoteDevice implements Disposable {
         })
     }
 
-    //not tested
     sendKeyboard(shift_keys:number, scan_codes: number[], ondone: () => void, onerr: (err: usb.LibUSBException) => void) {
         let buff = Buffer.alloc(8, 0)
         buff[0] = shift_keys & 0xFF//scan code
@@ -221,9 +221,8 @@ export class RemoteDevice implements Disposable {
     static findAvaliableDevice(): RemoteDevice | undefined {
         let dev: usb.Device | null = null
         usb.getDeviceList().forEach((v) => {
-            // console.log(v.deviceDescriptor)
             // it may not work for some devices, this is just an example
-            if (v.deviceDescriptor.idVendor == 0xea0 && v.deviceDescriptor.idProduct == 0x7301)
+            if (Config.getInstance().getIntrestedDeviceDescriptor(v))
                 dev = v
         })
         if(dev)
