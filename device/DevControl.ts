@@ -23,6 +23,13 @@ export class DevStatus {
     }
 }
 
+interface mouseKeys{
+    left:boolean,
+    right:boolean,
+    mid:boolean,
+    extra1:boolean,
+    extra2:boolean
+}
 
 export class RemoteDevice implements Disposable {
     dev: usb.Device
@@ -131,9 +138,9 @@ export class RemoteDevice implements Disposable {
     }
 
 
-    moveMouse(x: number, y: number, wheel: number, ondone: () => void, onerr: (err: usb.LibUSBException) => void) {
+    moveMouse(keys:mouseKeys,x: number, y: number, wheel: number, ondone: () => void, onerr: (err: usb.LibUSBException) => void) {
         let buff = Buffer.alloc(4)
-        buff[0] = 0x20
+        buff[0] = 0x20 | (keys.left ? 0x01 : 0x00) | (keys.right ? 0x02 : 0x00) | (keys.mid ? 0x04: 0x00) | (keys.extra1 ? 0x08:0) |(keys.extra2 ? 0x10 : 0)
         buff[1] = x & 0xff
         buff[2] = y & 0xff
         buff[3] = wheel & 0xff
@@ -148,9 +155,9 @@ export class RemoteDevice implements Disposable {
             })
     }
 
-    moveMouseAsync(x: number, y: number, wheel: number): Promise<undefined> {
+    moveMouseAsync(keys:mouseKeys, x: number, y: number, wheel: number): Promise<undefined> {
         return new Promise((resolve, reject) => {
-            this.moveMouse(x, y, wheel, () => resolve(undefined), (err) => reject(err))
+            this.moveMouse(keys, x, y, wheel, () => resolve(undefined), (err) => reject(err))
         })
     }
 

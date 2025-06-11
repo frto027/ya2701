@@ -4,15 +4,17 @@
   "main": "main.js",
   "scripts": {
     "build": "npx tsc",
-    "test" : "npx tsc && node dist/main.js",
-    "test/mousemove" : "npx tsc && node dist/test/mousemove.js",
-    "test/keysend" : "npx tsc && node dist/test/keysend.js"
+    "test": "npx tsc && node dist/main.js",
+    "electron":"npx tsc && npx electron dist/main.js",
+    "test/mousemove": "npx tsc && node dist/test/mousemove.js",
+    "test/keysend": "npx tsc && node dist/test/keysend.js"
   },
   "author": "frto027",
   "license": "UNLICENSED",
   "description": "",
   "devDependencies": {
     "@types/node": "^24.0.0",
+    "electron": "^36.4.0",
     "typescript": "^5.8.3"
   },
   "dependencies": {
