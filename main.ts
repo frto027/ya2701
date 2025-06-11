@@ -1,12 +1,15 @@
-import {findAvaliableDevice, RemoteDevice} from "./DevControl"
+import {RemoteDevice} from "./device/DevControl"
 
-let d = findAvaliableDevice()
-if(d){
-    let dev = new RemoteDevice(d)
-    function move(){
-        dev.moveMouse(5,5,0, ()=>{
-            move()
-        }, ()=>{})
+async function main(){
+    using dev = RemoteDevice.findAvaliableDevice()
+    if(!dev){
+        console.error("device not fouhnd")
+        return
     }
-    move()
-}
+
+    //do something with dev?
+
+    console.log("done")
+} 
+
+main()
