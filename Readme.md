@@ -1,6 +1,6 @@
-ya2701 means Yet Another 2701
+    本项目处于归档状态，不再有后续更新，如果未来受到关注，或有开发计划，则会考虑重启。如果您对此软件感兴趣，欢迎在B站与我私信交流（@Frto027）。
 
-本项目处于归档状态，不再有后续更新，如果未来受到关注，或有开发计划，则会考虑重启。如果您对此软件感兴趣，欢迎在B站与我私信交流（@Frto027）。
+ya2701 means Yet Another 2701
 
 ![demo](https://img.shields.io/badge/status-demo-yellow)
 
