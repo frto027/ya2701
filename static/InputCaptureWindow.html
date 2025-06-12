@@ -1,6 +1,40 @@
 <html>
-    <body>
+
+    <style>
+        .large-btn{
+            cursor:pointer;width: 100px;height: 100px; background-color: gray; margin: 10px; text-align: center; display: inline-block;vertical-align: bottom;
+        }
+
+        .keysend-btn{
+            color: rgb(0, 0, 0);
+            cursor:pointer;width: 90px;height: 40px; background-color: rgb(194, 241, 155); margin: 3px; text-align: center; display: inline-block;vertical-align: bottom;
+        }
+    </style>
+    <body style="background-color: black;">
+        
+        <div style="color: white;text-align: center;" id="container">
+            <div onclick="enterCapture(false)" class="large-btn">
+                Capture
+            </div>
+            <div onclick="enterCapture(true)" class="large-btn">
+                Capture<br>(lock key)
+            </div>
+
+            <div style="text-align: center; margin: 10px;">
+                <div class="keysend-btn" onclick="sendKeyPress(true, true, false, false, 'Delete')">ctrl-alt-del</div>
+                <div class="keysend-btn" onclick="sendKeyPress(false, true, false, false,'KeyS')">alt-S</div>
+                <div class="keysend-btn" onclick="sendKeyPress(false, true, false, false,'Sleep')">Sleep</div>
+                <div class="keysend-btn" onclick="sendKeyPress(false, true, false, false,'WakeUp')">WakeUp</div>
+                <div class="keysend-btn" onclick="sendKeyPress(false, true, false, false,'Power')">Power</div>    
+            </div>    
+        </div>
+
+        <div style="color: white; display: none;text-align: center; margin: 20px;" id="fullscreen">
+            Capturing, press alt-S to escape.
+            <br> You can also press Ctrl-Alt-Del if there is bug in this software.
+        </div>
+
+        <script src="../dist/static/keycodes.js"></script>
         <script src="../dist/static/InputCaptureWindowPage.js"></script>
-        click to ctrl mouse, press ESC to cancel.
     </body>
 </html>

@@ -23,8 +23,8 @@ export class Config{
             name:"default"
         }
     ]
-    constructor(){
 
+    constructor(){
     }
 
     getIntrestedDeviceDescriptor(dev:usb.Device):DeviceDescriptor|undefined{

@@ -23,14 +23,27 @@ export class DevStatus {
     }
 }
 
-interface mouseKeys{
-    left:boolean,
-    right:boolean,
-    mid:boolean,
-    extra1:boolean,
-    extra2:boolean
+//https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
+export enum MouseKey{
+    NONE = 0,
+    LEFT = 1,
+    RIGHT = 2,
+    MID = 4,
+    EXTRA = 8,
+    EXTRA2 = 16
 }
-
+//https://wiki.osdev.org/USB_Human_Interface_Devices
+export enum KeyboardModifiers{
+    NONE = 0,
+    LCTRL = 1,
+    LSHIFT = 2,
+    LALT = 4,
+    LGUI = 8,
+    RCTRL = 16,
+    RSHIFT = 32,
+    RALT = 64,
+    RGUI = 128,
+}
 export class RemoteDevice implements Disposable {
     dev: usb.Device
     interface?: Interface
@@ -137,10 +150,9 @@ export class RemoteDevice implements Disposable {
         })
     }
 
-
-    moveMouse(keys:mouseKeys,x: number, y: number, wheel: number, ondone: () => void, onerr: (err: usb.LibUSBException) => void) {
+    moveMouse(keys:MouseKey,x: number, y: number, wheel: number, ondone: () => void, onerr: (err: usb.LibUSBException) => void) {
         let buff = Buffer.alloc(4)
-        buff[0] = 0x20 | (keys.left ? 0x01 : 0x00) | (keys.right ? 0x02 : 0x00) | (keys.mid ? 0x04: 0x00) | (keys.extra1 ? 0x08:0) |(keys.extra2 ? 0x10 : 0)
+        buff[0] = 0x20 | keys
         buff[1] = x & 0xff
         buff[2] = y & 0xff
         buff[3] = wheel & 0xff
@@ -155,18 +167,18 @@ export class RemoteDevice implements Disposable {
             })
     }
 
-    moveMouseAsync(keys:mouseKeys, x: number, y: number, wheel: number): Promise<undefined> {
+    moveMouseAsync(keys:MouseKey, x: number, y: number, wheel: number): Promise<undefined> {
         return new Promise((resolve, reject) => {
             this.moveMouse(keys, x, y, wheel, () => resolve(undefined), (err) => reject(err))
         })
     }
 
-    sendKeyboard(shift_keys:number, scan_codes: number[], ondone: () => void, onerr: (err: usb.LibUSBException) => void) {
+    sendKeyboard(shift_keys:KeyboardModifiers, scan_codes: number[], ondone: () => void, onerr: (err: usb.LibUSBException) => void) {
         let buff = Buffer.alloc(8, 0)
-        buff[0] = shift_keys & 0xFF//scan code
+        buff[0] = shift_keys//scan code
         buff[1];//reversed
         for (let i = 0; i < scan_codes.length && i < 6; i++) {
-            buff[2 + i] = scan_codes[i] & 0xFF
+            buff[2 + i] = scan_codes[i]
         }
         this.dev.controlTransfer(0x40,
             9, 0, 4, buff, (err, buff) => {
@@ -179,7 +191,7 @@ export class RemoteDevice implements Disposable {
             })
     }
 
-    sendKeyboardAsync(shift_keys:number, scan_codes: number[]): Promise<undefined> {
+    sendKeyboardAsync(shift_keys:KeyboardModifiers, scan_codes: number[]): Promise<undefined> {
         return new Promise((resolve, reject) => {
             this.sendKeyboard(shift_keys, scan_codes, () => resolve(undefined), (err) => reject(err))
         })

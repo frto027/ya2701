@@ -12,7 +12,7 @@ async function main(){
     //do something with dev?
     await app.whenReady()
     
-    require("./window/InputCaptureWindow").createWindow(dev)
+    require("./window/InputCaptureWindow/InputCaptureWindow").createWindow(dev)
 
     // console.log("done")
 } 
