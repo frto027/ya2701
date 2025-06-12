@@ -120,6 +120,7 @@ function enterCaptureContinue(){
 }
 function enterCaptureErr(err:any){
     console.error(err)
+    leaveCapture()
 }
 
 document.onpointerlockchange = (e)=>{

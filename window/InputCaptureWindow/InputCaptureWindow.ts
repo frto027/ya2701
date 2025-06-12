@@ -18,10 +18,10 @@ export function createWindow(dev:RemoteDevice){
           }
     })
     win.removeMenu()
-    win.webContents.openDevTools()
-    win.loadFile("../static/InputCaptureWindow.html")
+    // win.webContents.openDevTools()
+    win.loadFile(path.join(__dirname,"../../../static/InputCaptureWindow.html"))
 
-    win.setTitle("DevCtrl")
+    win.setTitle("ya2701 - demo 1")
     // let server = new SocketIPCServer();
     // (async()=>{
     //     server.listen(7988)
