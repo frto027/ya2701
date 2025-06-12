@@ -51,6 +51,7 @@ module.exports = {
         "/test",
         "/window",
         "/.git",
+        "/docs",
         "/datas.txt",
         "/forge.config.js"
       ]
